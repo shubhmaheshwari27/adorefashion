@@ -2,20 +2,691 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 35 91.0% 32.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 35 91.0% 32.9%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    width: 100%;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight leading-tight;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  /* Improved paragraph spacing */
+  p + p {
+    @apply mt-4;
+  }
 }
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Improved responsive typography classes with better line heights and letter spacing */
+.heading-xl {
+  @apply font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[1.1];
+  letter-spacing: -0.02em;
+}
+
+.heading-lg {
+  @apply font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tighter leading-[1.1];
+  letter-spacing: -0.02em;
+}
+
+.heading-md {
+  @apply font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tighter leading-[1.2];
+  letter-spacing: -0.01em;
+}
+
+.heading-sm {
+  @apply font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-[1.2];
+  letter-spacing: -0.01em;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+  opacity: 1;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-scale-out {
+  animation: scaleOut 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-left {
+  animation: slideLeft 1s ease forwards;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-right {
+  animation: slideRight 1s ease forwards;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.transition-scale {
+  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.transition-scale:hover {
+  transform: scale(1.05);
+}
+
+.mask-gradient-b {
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.mask-gradient-r {
+  mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}
+
+.glassmorphism {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent;
+}
+
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: -1;
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.horizontal-scroll-container {
+  @apply overflow-x-auto flex gap-6 pb-8 snap-x snap-mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontal-scroll-item {
+  @apply snap-center flex-shrink-0 w-[85vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw];
+}
+
+/* Decorative elements */
+.circle-element {
+  @apply absolute rounded-full bg-amber-500/20 backdrop-blur-md;
+}
+
+.floating-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Magnetic button effect */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Cursor effects */
+.custom-cursor {
+  @apply fixed top-0 left-0 w-8 h-8 rounded-full bg-amber-500/50 pointer-events-none z-50 mix-blend-difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor.hover {
+  @apply w-24 h-24 bg-white mix-blend-difference;
+}
+
+/* Improved responsive padding utility classes */
+.responsive-padding {
+  @apply px-4 sm:px-6 md:px-8 lg:px-12;
+}
+
+.responsive-section {
+  @apply py-12 sm:py-16 md:py-20 lg:py-24;
+}
+
+/* Improved responsive container with consistent spacing */
+.container {
+  @apply px-4 sm:px-6 md:px-8 lg:px-12;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Improved mobile touch targets */
+button,
+a.button,
+[role="button"] {
+  @apply min-h-[44px] min-w-[44px];
+}
+
+/* Ensure content is visible on all devices */
+body * {
+  opacity: 1 !important;
+}
+
+/* Ensure content is visible on mobile */
+[class*="translate-"] {
+  transform: translate(0, 0) !important;
+  opacity: 1 !important;
+}
+
+/* Improve mobile menu */
+.mobile-menu-container {
+  @apply fixed inset-0 z-50 bg-white/95 backdrop-blur-md overflow-y-auto;
+}
+
+/* Responsive grid layouts with improved spacing */
+.responsive-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10;
+}
+
+/* Responsive text sizes with improved line heights */
+.text-responsive {
+  @apply text-base sm:text-lg md:text-xl leading-relaxed;
+}
+
+/* Responsive buttons with consistent spacing */
+.btn-responsive {
+  @apply px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4;
+}
+
+/* Improved text readability classes */
+.prose {
+  @apply max-w-none leading-relaxed;
+}
+
+.prose p {
+  @apply mb-6 text-base sm:text-lg leading-relaxed;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-heading font-bold tracking-tight mt-8 mb-4;
+}
+
+.prose h1 {
+  @apply text-3xl sm:text-4xl leading-tight;
+}
+
+.prose h2 {
+  @apply text-2xl sm:text-3xl leading-tight;
+}
+
+.prose h3 {
+  @apply text-xl sm:text-2xl leading-tight;
+}
+
+.prose ul,
+.prose ol {
+  @apply my-6 ml-6 space-y-2;
+}
+
+.prose li {
+  @apply leading-relaxed;
+}
+
+/* Card content spacing */
+.card-content {
+  @apply space-y-4;
+}
+
+.card-content h3 {
+  @apply mb-2;
+}
+
+.card-content p {
+  @apply leading-relaxed;
+}
+
+/* Add these mobile-first optimizations at the end of the file */
+
+/* Mobile-first optimizations */
+@layer utilities {
+  /* Improved touch targets for mobile */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Prevent text from being too small on mobile */
+  .mobile-text {
+    @apply text-base leading-relaxed;
+    font-size: max(16px, 1rem);
+  }
+
+  /* Prevent horizontal overflow on mobile */
+  .no-horizontal-overflow {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Improved spacing for mobile content */
+  .mobile-spacing {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
+  }
+
+  /* Better mobile section padding */
+  .mobile-section {
+    @apply py-10 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  /* Improve text wrapping on mobile */
+  .mobile-text-wrap {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+
+  /* Fix container width on mobile */
+  .mobile-container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Optimize images for different screen sizes */
+.responsive-image {
+  @apply w-full h-auto object-cover;
+  aspect-ratio: 16 / 9;
+}
+
+/* Improved mobile navigation */
+.mobile-nav-item {
+  @apply py-3 px-4 text-lg font-medium w-full text-center;
+}
+
+/* Optimize form elements for touch */
+input,
+select,
+textarea,
+button {
+  @apply text-base;
+  font-size: max(16px, 1rem);
+}
+
+/* Prevent zoom on input focus on iOS */
+@supports (-webkit-touch-callout: none) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Improved mobile card layouts */
+.mobile-card {
+  @apply w-full rounded-xl overflow-hidden shadow-md;
+}
+
+/* Fast tap response on mobile */
+.tap-highlight {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent fixed position issues on iOS */
+.ios-fixed {
+  -webkit-transform: translateZ(0);
+}
+
+/* Optimize scrolling on mobile */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Ensure body takes full height on mobile */
+html,
+body {
+  @apply min-h-screen;
+  height: -webkit-fill-available;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Fix viewport height issues on mobile */
+:root {
+  --vh: 1vh;
+}
+
+.full-screen {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Add at the very end of the file */
+/* Fix for mobile 100vh issue */
+@media (max-width: 767px) {
+  .min-h-80vh, .h-70vh, .h-60vh, .h-screen, .min-h-screen {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+/* Fix for mobile content clipping */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  div {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Ensure no fixed widths on mobile */
+  [class*="w-"] {
+    max-width: 100%;
+  }
+
+  /* Fix horizontal scroll container on mobile */
+  .horizontal-scroll-container {
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Ensure text doesn't get cut off */
+  .text-gradient,
+  .heading-xl,
+  .heading-lg,
+  .heading-md,
+  .heading-sm {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  /* Fix for mobile horizontal overflow */
+  .circle-element {
+    max-width: 30vw;
+    max-height: 30vw;
+  }
+
+  /* Ensure all images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Fix for any absolute positioned elements */
+  [class*="absolute"] {
+    max-width: 100vw;
+  }
+}
+
+/* Additional mobile fixes */
+@media (max-width: 640px) {
+  /* Ensure all sections have proper padding */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fix for any grid layouts */
+  .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  /* Ensure all flex items can shrink */
+  .flex > * {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  /* Fix for horizontal scroll items */
+  .horizontal-scroll-item {
+    width: 85vw !important;
+    max-width: 85vw !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Hide custom cursor on mobile and tablet devices */
+@media (max-width: 1024px) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  /* Reset any cursor styles on touch devices */
+  * {
+    cursor: auto !important;
+  }
+
+  /* Ensure no hover effects that depend on cursor */
+  .touch-device a:hover,
+  .touch-device button:hover {
+    cursor: pointer !important;
+  }
+}
+
+/* Add a class to hide cursor on touch devices */
+.touch-device .custom-cursor {
+  display: none !important;
+}
+
+/* Hide custom cursor on mobile devices */
+.mobile-device .custom-cursor {
+  display: none !important;
+}
+
