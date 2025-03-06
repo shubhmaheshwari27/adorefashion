@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -359,12 +358,15 @@ export default function ContactClientPage() {
 
             <AnimatedScroll>
               <div className="h-[500px] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src="/assets/placeholders/adore_placeholder.jpg?height=500&width=1200"
-                  alt="Map location"
-                  width={1200}
-                  height={500}
-                  className="w-full h-full object-cover"
+                {/* Google Map iframe */}
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3665.0760867116146!2d77.36999617582445!3d23.276684878996406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x397c6766d96c1ea5%3A0x2f0eb4d43d76974a!2sAdore%20by%20Kavya!5e0!3m2!1sen!2sin!4v1741250826710!5m2!1sen!2sin"
+                  width="100%" // Ensure the iframe fills its container
+                  height="100%" // Ensure the iframe fills its container height
+                  style={{ border: "0" }} // Optional: remove border around the iframe
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
             </AnimatedScroll>
