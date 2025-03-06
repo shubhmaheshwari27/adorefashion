@@ -3,7 +3,7 @@ import { Instagram, Facebook, Mail } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-amber-950 to-amber-900 text-white/90 py-16 sm:py-20">
+    <footer className="relative overflow-hidden bg-gradient-to-b from-amber-950 to-amber-900 dark:from-amber-950 dark:to-amber-900/90 text-white/90 py-16 sm:py-20">
       {/* Decorative circles */}
       <div className="circle-element w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] opacity-20 top-0 left-[10%]"></div>
       <div className="circle-element w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] opacity-10 bottom-0 right-[5%]"></div>

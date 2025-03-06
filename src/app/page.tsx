@@ -1,48 +1,55 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import Script from "next/script"
-import { Button } from "@/components/ui/button"
-import MagnetButton from "@/components/ui/magnet-button"
-import Navigation from "@/components/ui/navigation"
-import Footer from "@/components/ui/footer"
-import AnimatedScroll from "@/components/ui/animated-scroll"
-import ParallaxImage from "@/components/ui/parallax-image"
-import HorizontalScroll from "@/components/ui/horizontal-scroll"
-import { ChevronRight, ArrowRight, Star } from "lucide-react"
-import ProductInquiryForm from "@/components/ui/product-inquiry-form"
-import { generateLocalBusinessStructuredData } from "@/components/structured-data"
-import MobileOptimizedImage from "@/components/ui/mobile-optimized-image"
-import { setupMobileViewportHeight, improveTouchResponse, isMobileDevice } from "@/app/mobile-utils"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Script from "next/script";
+import { Button } from "@/components/ui/button";
+import MagnetButton from "@/components/ui/magnet-button";
+import Navigation from "@/components/ui/navigation";
+import Footer from "@/components/ui/footer";
+import AnimatedScroll from "@/components/ui/animated-scroll";
+import ParallaxImage from "@/components/ui/parallax-image";
+import HorizontalScroll from "@/components/ui/horizontal-scroll";
+import { ChevronRight, ArrowRight, Star } from "lucide-react";
+import ProductInquiryForm from "@/components/ui/product-inquiry-form";
+import { generateLocalBusinessStructuredData } from "@/components/structured-data";
+import MobileOptimizedImage from "@/components/ui/mobile-optimized-image";
+import {
+  setupMobileViewportHeight,
+  improveTouchResponse,
+  isMobileDevice,
+} from "@/app/mobile-utils";
 
 export default function Home() {
-  const router = useRouter()
-  const [isMobile, setIsMobile] = useState(false)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<{ name: string; image: string } | null>(null)
+  const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<{
+    name: string;
+    image: string;
+  } | null>(null);
 
   // Generate structured data
-  const structuredData = generateLocalBusinessStructuredData()
+  const structuredData = generateLocalBusinessStructuredData();
 
   useEffect(() => {
     // Check if device is mobile
-    setIsMobile(isMobileDevice())
+    setIsMobile(isMobileDevice());
 
     // Initialize mobile optimizations
-    setupMobileViewportHeight()
-    improveTouchResponse()
+    setupMobileViewportHeight();
+    improveTouchResponse();
 
     // Disable custom cursor on mobile
     if (isMobileDevice()) {
-      document.documentElement.classList.add("mobile-device")
+      document.documentElement.classList.add("mobile-device");
     }
 
     // Initialize smooth scrolling
     const initSmoothScroll = async () => {
       try {
-        const Lenis = (await import("@studio-freight/lenis")).default
+        const Lenis = (await import("@studio-freight/lenis")).default;
         const lenis = new Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -50,32 +57,32 @@ export default function Home() {
           gestureOrientation: "vertical",
           smoothWheel: true,
           touchMultiplier: 2, // Better touch response
-        })
+        });
 
         function raf(time: number) {
-          lenis.raf(time)
-          requestAnimationFrame(raf)
+          lenis.raf(time);
+          requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf)
+        requestAnimationFrame(raf);
       } catch (error) {
-        console.error("Failed to initialize smooth scrolling:", error)
+        console.error("Failed to initialize smooth scrolling:", error);
       }
-    }
+    };
 
-    initSmoothScroll()
-  }, [])
+    initSmoothScroll();
+  }, []);
 
   // Function to navigate to collections page with a specific category
   const navigateToCollection = (collectionId: string) => {
-    router.push(`/collections?category=${collectionId}`)
-  }
+    router.push(`/collections?category=${collectionId}`);
+  };
 
   // Function to handle consultation booking
   const handleBookConsultation = () => {
-    setSelectedProduct({ name: "Consultation Request", image: "1080" })
-    setModalOpen(true)
-  }
+    setSelectedProduct({ name: "Consultation Request", image: "1080" });
+    setModalOpen(true);
+  };
 
   return (
     <>
@@ -92,7 +99,7 @@ export default function Home() {
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           productName={selectedProduct.name}
-          productImage={`/placeholder.svg?height=${selectedProduct.image}&width=600`}
+          productImage={`/assets/placeholders/adore_placeholder.jpg?height=${selectedProduct.image}&width=600`}
         />
       )}
 
@@ -102,12 +109,12 @@ export default function Home() {
           {/* Background image with parallax effect */}
           <div className="absolute inset-0 z-0">
             <ParallaxImage
-              src="/placeholder.svg?height=1080&width=1920"
+              src="/assets/placeholders/adore_placeholder.jpg"
               alt="Adore Boutique - Elegant Indian Ethnic Wear"
               priority
               speed={isMobile ? 0 : 0.3} // Disable parallax on mobile for better performance
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-900/90 via-amber-800/70 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-900/90 via-amber-800/70 to-transparent dark:from-amber-950/90 dark:via-amber-900/70 z-10" />
           </div>
 
           {/* Decorative elements - reduced on mobile */}
@@ -122,28 +129,40 @@ export default function Home() {
             <div className="max-w-xl space-y-4 sm:space-y-8 mobile-text-wrap">
               <h1 className="heading-xl text-white">
                 <span className="block animate-fade-in">Celebrating</span>
-                <span className="block animate-fade-in" style={{ animationDelay: "300ms" }}>
+                <span
+                  className="block animate-fade-in"
+                  style={{ animationDelay: "300ms" }}
+                >
                   Tradition with
                 </span>
-                <span className="block animate-fade-in" style={{ animationDelay: "600ms" }}>
+                <span
+                  className="block animate-fade-in"
+                  style={{ animationDelay: "600ms" }}
+                >
                   Elegance
                 </span>
               </h1>
 
               <p
-                className="text-base sm:text-lg md:text-xl text-white/90 animate-slide-up mobile-text mobile-text-wrap"
+                className="text-base sm:text-lg md:text-xl text-white/90 animate-slide-up mobile-text mobile-text-wrap dark:text-white/90"
                 style={{ animationDelay: "900ms" }}
               >
-                Discover exquisite Indian ethnic wear crafted with passion, tradition, and a touch of contemporary
-                elegance.
+                Discover exquisite Indian ethnic wear crafted with passion,
+                tradition, and a touch of contemporary elegance.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 animate-slide-up" style={{ animationDelay: "1200ms" }}>
+              <div
+                className="flex flex-col sm:flex-row gap-4 animate-slide-up"
+                style={{ animationDelay: "1200ms" }}
+              >
                 <Button
-                  className="bg-amber-700 hover:bg-amber-800 rounded-full px-6 sm:px-8 py-3 sm:py-6 text-base touch-target"
+                  className="bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-700 rounded-full px-6 sm:px-8 py-3 sm:py-6 text-base touch-target"
                   onClick={() => {
-                    setSelectedProduct({ name: "Featured Collection", image: "1080" })
-                    setModalOpen(true)
+                    setSelectedProduct({
+                      name: "Featured Collection",
+                      image: "1080",
+                    });
+                    setModalOpen(true);
                   }}
                 >
                   Shop Now
@@ -151,7 +170,7 @@ export default function Home() {
                 <MagnetButton
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-base touch-target"
+                  className="border-amber-700 text-amber-700 hover:bg-white/10 dark:border-amber-400 dark:text-amber-400 dark:hover:bg-amber-800/20 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-base touch-target"
                   onClick={handleBookConsultation}
                   strength={isMobile ? 0 : 0.5} // Disable magnetic effect on mobile
                 >
@@ -168,27 +187,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Rest of the home page content... */}
         {/* Featured Collections - Horizontal Scroll */}
-        <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden bg-gradient-to-b from-amber-50 to-white mobile-section">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden bg-gradient-to-b from-amber-50 to-white dark:from-amber-950/50 dark:to-amber-950 mobile-section">
           <div className="circle-element w-32 h-32 sm:w-64 sm:h-64 -top-32 left-1/4 opacity-40"></div>
           <div className="circle-element w-48 h-48 sm:w-96 sm:h-96 -bottom-48 right-1/3 opacity-30"></div>
 
           <div className="container mx-auto px-4 sm:px-6 md:px-12 mb-8 sm:mb-12 w-full box-border">
             <AnimatedScroll>
               <div className="flex flex-col items-center text-center mb-8 sm:mb-12">
-                <span className="text-amber-600 font-medium mb-2">DISCOVER OUR COLLECTIONS</span>
-                <h2 className="heading-md text-gradient mb-4 sm:mb-6">Featured Collections</h2>
-                <div className="w-16 sm:w-20 h-1 bg-amber-600 mb-4 sm:mb-6"></div>
+                <span className="text-amber-600 dark:text-amber-400 font-medium mb-2">
+                  DISCOVER OUR COLLECTIONS
+                </span>
+                <h2 className="heading-md text-gradient mb-4 sm:mb-6">
+                  Featured Collections
+                </h2>
+                <div className="w-16 sm:w-20 h-1 bg-amber-600 dark:bg-amber-400 mb-4 sm:mb-6"></div>
                 <p className="text-muted-foreground max-w-2xl text-base leading-relaxed mobile-text">
-                  Explore our handpicked designs that blend traditional craftsmanship with contemporary aesthetics.
+                  Explore our handpicked designs that blend traditional
+                  craftsmanship with contemporary aesthetics.
                 </p>
               </div>
             </AnimatedScroll>
           </div>
 
           <HorizontalScroll
-            itemClassName={`w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[40vw] ${isMobile ? "snap-center" : ""}`}
+            itemClassName={`w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[40vw] ${
+              isMobile ? "snap-center" : ""
+            }`}
           >
             {[
               {
@@ -222,14 +247,14 @@ export default function Home() {
               >
                 <div className="absolute inset-0 transition-scale">
                   <MobileOptimizedImage
-                    src={`/placeholder.svg?height=${collection.image}&width=1080`}
-                    mobileSrc={`/placeholder.svg?height=${collection.image}&width=640`}
-                    tabletSrc={`/placeholder.svg?height=${collection.image}&width=1024`}
+                    src={`/assets/placeholders/adore_placeholder.jpg?height=${collection.image}&width=1080`}
+                    mobileSrc={`/assets/placeholders/adore_placeholder.jpg?height=${collection.image}&width=640`}
+                    tabletSrc={`/assets/placeholders/adore_placeholder.jpg?height=${collection.image}&width=1024`}
                     alt={`${collection.title} - Adore Boutique Collection`}
                     className="w-full h-full"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent dark:from-black/90 dark:via-black/50 flex flex-col justify-end p-4 sm:p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-white mb-2 sm:mb-3">
                     {collection.title}
                   </h3>
@@ -238,7 +263,7 @@ export default function Home() {
                   </p>
                   <Button
                     variant="outline"
-                    className="border-white text-white hover:bg-white/20 self-start rounded-full group text-sm touch-target"
+                    className="border-amber-700 text-amber-700 hover:bg-white/20 dark:border-amber-400 dark:text-amber-400 dark:hover:bg-amber-800/20 self-start rounded-full group text-sm touch-target"
                     onClick={() => navigateToCollection(collection.id)}
                     aria-label={`View ${collection.title} collection`}
                   >
@@ -258,8 +283,8 @@ export default function Home() {
               <AnimatedScroll direction="right">
                 <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden">
                   <MobileOptimizedImage
-                    src="/placeholder.svg?height=1000&width=800"
-                    mobileSrc="/placeholder.svg?height=600&width=480"
+                    src="/assets/placeholders/adore_placeholder.jpg?height=1000&width=800"
+                    mobileSrc="/assets/placeholders/adore_placeholder.jpg?height=600&width=480"
                     alt="About Adore Boutique"
                     className="w-full h-full"
                   />
@@ -267,8 +292,8 @@ export default function Home() {
                   {/* Floating decorative elements - reduced on mobile */}
                   {!isMobile && (
                     <>
-                      <div className="absolute top-1/4 -right-10 w-20 h-20 sm:w-40 sm:h-40 bg-amber-500/20 rounded-full backdrop-blur-md -z-10"></div>
-                      <div className="absolute bottom-1/4 -left-12 w-12 h-12 sm:w-24 sm:h-24 bg-amber-500/30 rounded-full backdrop-blur-md -z-10"></div>
+                      <div className="absolute top-1/4 -right-10 w-20 h-20 sm:w-40 sm:h-40 bg-amber-500/20 dark:bg-amber-400/10 rounded-full backdrop-blur-md -z-10"></div>
+                      <div className="absolute bottom-1/4 -left-12 w-12 h-12 sm:w-24 sm:h-24 bg-amber-500/30 dark:bg-amber-400/20 rounded-full backdrop-blur-md -z-10"></div>
                     </>
                   )}
                 </div>
@@ -276,25 +301,32 @@ export default function Home() {
 
               <AnimatedScroll direction="left">
                 <div className="space-y-4 sm:space-y-6 mobile-spacing">
-                  <span className="text-amber-600 font-medium">OUR JOURNEY</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-medium">
+                    OUR JOURNEY
+                  </span>
                   <h2 className="heading-md text-gradient">Our Story</h2>
-                  <div className="w-16 sm:w-20 h-1 bg-amber-600"></div>
+                  <div className="w-16 sm:w-20 h-1 bg-amber-600 dark:bg-amber-400"></div>
                   <p className="text-muted-foreground text-base leading-relaxed mobile-text">
-                    At Adore, we blend tradition and modernity to bring the finest Indian clothing, perfect for every
-                    occasion. Our journey began with a passion for preserving the rich heritage of Indian textiles while
-                    embracing contemporary design sensibilities.
+                    At Adore, we blend tradition and modernity to bring the
+                    finest Indian clothing, perfect for every occasion. Our
+                    journey began with a passion for preserving the rich
+                    heritage of Indian textiles while embracing contemporary
+                    design sensibilities.
                   </p>
                   <p className="text-muted-foreground text-base leading-relaxed mobile-text">
-                    Each piece in our collection is carefully crafted by skilled artisans who have inherited generations
-                    of knowledge in traditional techniques like zardozi, chikankari, and bandhani.
+                    Each piece in our collection is carefully crafted by skilled
+                    artisans who have inherited generations of knowledge in
+                    traditional techniques like zardozi, chikankari, and
+                    bandhani.
                   </p>
                   <p className="text-muted-foreground text-base leading-relaxed mobile-text">
-                    We believe that clothing is not just about covering the body, but about expressing one's identity,
-                    culture, and emotions. Our designs reflect this philosophy, offering you not just garments, but
-                    stories woven in threads.
+                    We believe that clothing is not just about covering the
+                    body, but about expressing one{"'"}s identity, culture, and
+                    emotions. Our designs reflect this philosophy, offering you
+                    not just garments, but stories woven in threads.
                   </p>
                   <Button
-                    className="bg-amber-700 hover:bg-amber-800 rounded-full px-6 sm:px-8 py-3 sm:py-6 mt-2 sm:mt-4 text-base touch-target"
+                    className="bg-amber-700 hover:bg-amber-800 dark:bg-amber-600 dark:hover:bg-amber-700 rounded-full px-6 sm:px-8 py-3 sm:py-6 mt-2 sm:mt-4 text-base touch-target"
                     onClick={() => router.push("/about")}
                   >
                     Learn More About Us
@@ -306,20 +338,27 @@ export default function Home() {
         </section>
 
         {/* Testimonials with parallax */}
-        <section className="py-24 relative overflow-hidden bg-amber-50">
+        <section className="py-24 relative overflow-hidden bg-amber-50 dark:bg-amber-950/50">
           <div className="absolute inset-0 -z-10">
-            <ParallaxImage src="/placeholder.svg?height=1200&width=1920" alt="Background texture" speed={0.2} />
-            <div className="absolute inset-0 bg-amber-50/90 backdrop-blur-sm" />
+            <ParallaxImage
+              src="/assets/placeholders/adore_placeholder.jpg?height=1200&width=1920"
+              alt="Background texture"
+              speed={0.2}
+            />
+            <div className="absolute inset-0 bg-amber-50/90 dark:bg-amber-950/90 backdrop-blur-sm" />
           </div>
 
           <div className="container mx-auto px-6 md:px-12 w-full box-border">
             <AnimatedScroll>
               <div className="flex flex-col items-center text-center mb-16">
-                <span className="text-amber-600 font-medium mb-2">WHAT PEOPLE SAY</span>
+                <span className="text-amber-600 dark:text-amber-400 font-medium mb-2">
+                  WHAT PEOPLE SAY
+                </span>
                 <h2 className="heading-md text-gradient mb-6">Customer Love</h2>
-                <div className="w-20 h-1 bg-amber-600 mb-6"></div>
+                <div className="w-20 h-1 bg-amber-600 dark:bg-amber-400 mb-6"></div>
                 <p className="text-muted-foreground max-w-2xl">
-                  Hear what our customers have to say about their experience with Adore.
+                  Hear what our customers have to say about their experience
+                  with Adore.
                 </p>
               </div>
             </AnimatedScroll>
@@ -348,19 +387,24 @@ export default function Home() {
                 <AnimatedScroll key={index} delay={testimonial.delay}>
                   <div className="glassmorphism p-8 rounded-xl hover:shadow-lg transition-all">
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-amber-300">
+                      <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-amber-300 dark:border-amber-700">
                         <Image
-                          src={`/placeholder.svg?height=${testimonial.image}&width=101`}
+                          src={`/assets/placeholders/adore_placeholder.jpg?height=${testimonial.image}&width=101`}
                           alt={testimonial.name}
                           fill
                           className="object-cover"
                         />
                       </div>
                       <div>
-                        <h3 className="font-semibold">{testimonial.name}</h3>
-                        <div className="flex text-amber-500">
+                        <h3 className="font-semibold dark:text-amber-200">
+                          {testimonial.name}
+                        </h3>
+                        <div className="flex text-amber-500 dark:text-amber-400">
                           {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-amber-500" />
+                            <Star
+                              key={i}
+                              className="h-4 w-4 fill-amber-500 dark:fill-amber-400"
+                            />
                           ))}
                         </div>
                       </div>
@@ -378,36 +422,68 @@ export default function Home() {
           <div className="container mx-auto px-6 md:px-12 w-full box-border">
             <AnimatedScroll>
               <div className="flex flex-col items-center text-center mb-16">
-                <span className="text-amber-600 font-medium mb-2">BROWSE BY CATEGORY</span>
-                <h2 className="heading-md text-gradient mb-6">Our Categories</h2>
-                <div className="w-20 h-1 bg-amber-600 mb-6"></div>
+                <span className="text-amber-600 dark:text-amber-400 font-medium mb-2">
+                  BROWSE BY CATEGORY
+                </span>
+                <h2 className="heading-md text-gradient mb-6">
+                  Our Categories
+                </h2>
+                <div className="w-20 h-1 bg-amber-600 dark:bg-amber-400 mb-6"></div>
                 <p className="text-muted-foreground max-w-2xl">
-                  Explore our diverse range of categories to find the perfect outfit for any occasion.
+                  Explore our diverse range of categories to find the perfect
+                  outfit for any occasion.
                 </p>
               </div>
             </AnimatedScroll>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {[
-                { name: "Bridal", image: "2001", count: "24 items", id: "bridal" },
-                { name: "Festive", image: "2002", count: "36 items", id: "festive" },
-                { name: "Casual", image: "2003", count: "42 items", id: "indo-western" },
-                { name: "Accessories", image: "2004", count: "18 items", id: "sarees" },
+                {
+                  name: "Bridal",
+                  image: "2001",
+                  count: "24 items",
+                  id: "bridal",
+                },
+                {
+                  name: "Festive",
+                  image: "2002",
+                  count: "36 items",
+                  id: "festive",
+                },
+                {
+                  name: "Casual",
+                  image: "2003",
+                  count: "42 items",
+                  id: "indo-western",
+                },
+                {
+                  name: "Accessories",
+                  image: "2004",
+                  count: "18 items",
+                  id: "sarees",
+                },
               ].map((category, index) => (
                 <AnimatedScroll key={index} delay={index * 100}>
-                  <div className="block group cursor-pointer" onClick={() => navigateToCollection(category.id)}>
+                  <div
+                    className="block group cursor-pointer"
+                    onClick={() => navigateToCollection(category.id)}
+                  >
                     <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px] overflow-hidden rounded-xl">
                       <Image
-                        src={`/placeholder.svg?height=${category.image}&width=600`}
+                        src={`/assets/placeholders/adore_placeholder.jpg?height=${category.image}&width=600`}
                         alt={category.name}
                         fill
                         className="object-cover transition-all duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent dark:from-amber-950/90 dark:to-transparent/20 opacity-80 group-hover:opacity-90 transition-opacity" />
 
                       <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                        <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-1">{category.name}</h3>
-                        <p className="text-white/80 text-sm sm:text-base">{category.count}</p>
+                        <h3 className="text-xl sm:text-2xl font-heading font-bold text-white mb-1">
+                          {category.name}
+                        </h3>
+                        <p className="text-white/80 text-sm sm:text-base">
+                          {category.count}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -418,22 +494,25 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-800 text-white">
+        <section className="py-24 relative overflow-hidden bg-gradient-to-r from-amber-900 to-amber-800 dark:from-amber-950 dark:to-amber-900 text-white">
           <div className="circle-element w-[400px] h-[400px] opacity-20 top-0 -right-32"></div>
           <div className="circle-element w-[300px] h-[300px] opacity-10 bottom-0 -left-32"></div>
 
           <div className="container mx-auto px-6 md:px-12 w-full box-border">
             <div className="max-w-4xl mx-auto text-center">
               <AnimatedScroll>
-                <h2 className="heading-md mb-6">Ready to Find Your Perfect Outfit?</h2>
+                <h2 className="heading-md mb-6">
+                  Ready to Find Your Perfect Outfit?
+                </h2>
                 <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-                  Visit our boutique or book a virtual consultation with our stylists to discover the perfect outfit for
-                  your special occasion.
+                  Visit our boutique or book a virtual consultation with our
+                  stylists to discover the perfect outfit for your special
+                  occasion.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
                   <MagnetButton
                     size="lg"
-                    className="bg-white text-amber-900 hover:bg-amber-100 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-sm sm:text-base"
+                    className="bg-white text-amber-900 hover:bg-amber-100 dark:bg-amber-400 dark:text-amber-950 dark:hover:bg-amber-300 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-sm sm:text-base"
                     onClick={handleBookConsultation}
                   >
                     Book Consultation
@@ -441,7 +520,7 @@ export default function Home() {
                   <MagnetButton
                     size="lg"
                     variant="outline"
-                    className="border-white text-white hover:bg-white/20 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-sm sm:text-base"
+                    className="bg-amber-700 hover:bg-amber-800 hover:bg-white/20 dark:border-amber-400 dark:text-amber-400 dark:hover:bg-amber-800/30 rounded-full py-3 sm:py-6 px-6 sm:px-8 text-sm sm:text-base"
                     onClick={() => router.push("/collections")}
                   >
                     View Collections
@@ -455,6 +534,5 @@ export default function Home() {
 
       <Footer />
     </>
-  )
+  );
 }
-

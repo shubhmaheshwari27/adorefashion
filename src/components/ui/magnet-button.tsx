@@ -17,8 +17,16 @@ const MagnetButton: React.FC<MagnetButtonProps> = ({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isClient, setIsClient] = useState(false); // Check for client-side
+
+  // Ensure the effect is only run client-side
+  useEffect(() => {
+    setIsClient(true); // Set to true after the initial render on the client-side
+  }, []);
 
   useEffect(() => {
+    if (!isClient) return; // Skip if not on the client
+
     const button = buttonRef.current;
     if (!button) return;
 
@@ -43,7 +51,7 @@ const MagnetButton: React.FC<MagnetButtonProps> = ({
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [isHovered, strength]);
+  }, [isHovered, strength, isClient]); // Added isClient dependency to ensure we run the effect on the client only
 
   return (
     <Button

@@ -110,7 +110,7 @@ export default function ContactClientPage() {
         <section className="relative h-[60vh] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <ParallaxImage
-              src="/placeholder.svg?height=600&width=1920"
+              src="/assets/placeholders/adore_placeholder.jpg?height=600&width=1920"
               alt="Contact Adore Boutique - Get in Touch"
               priority
               speed={0.3}
@@ -124,8 +124,8 @@ export default function ContactClientPage() {
                 <span className="text-amber-300 font-medium">GET IN TOUCH</span>
                 <h1 className="heading-lg text-white">Contact Us</h1>
                 <p className="text-xl text-white/90">
-                  We'd love to hear from you. Reach out to us for any queries or
-                  to book a consultation.
+                  We{"'"}d love to hear from you. Reach out to us for any
+                  queries or to book a consultation.
                 </p>
               </div>
             </AnimatedScroll>
@@ -153,9 +153,9 @@ export default function ContactClientPage() {
                       Get in Touch
                     </h2>
                     <p className="text-muted-foreground text-lg">
-                      Whether you're looking for a specific outfit, want to book
-                      a consultation, or have any questions about our
-                      collections, we're here to help.
+                      Whether you{"'"}re looking for a specific outfit, want to
+                      book a consultation, or have any questions about our
+                      collections, we{"'"}re here to help.
                     </p>
                   </div>
 
@@ -360,7 +360,7 @@ export default function ContactClientPage() {
             <AnimatedScroll>
               <div className="h-[500px] rounded-xl overflow-hidden shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=500&width=1200"
+                  src="/assets/placeholders/adore_placeholder.jpg?height=500&width=1200"
                   alt="Map location"
                   width={1200}
                   height={500}

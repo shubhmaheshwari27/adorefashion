@@ -1,9 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
-    domains: ['example.com'], // Allow images from example.com
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "example.com", // Allow images from example.com
+      },
+    ],
+  },
+  typescript: {
+    ignoreBuildErrors: false, // Ensure TypeScript errors are not ignored
+  },
+  webpack(config, { isServer }) {
+    // Add custom Webpack configurations here if necessary
+    return config;
   },
 };
 

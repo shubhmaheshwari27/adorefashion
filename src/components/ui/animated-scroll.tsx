@@ -14,7 +14,7 @@ interface AnimatedScrollProps {
 
 const AnimatedScroll: React.FC<AnimatedScrollProps> = ({
   children,
-  direction = "up",
+  // direction = "up",
   delay = 0,
   duration = 1000,
   once = true,
@@ -61,7 +61,7 @@ const AnimatedScroll: React.FC<AnimatedScrollProps> = ({
   }, [delay, once])
 
   // Remove the initial styles that hide content
-  const initialStyles = ""
+  // const initialStyles = ""
 
   return (
     <div

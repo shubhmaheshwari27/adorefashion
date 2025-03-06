@@ -27,11 +27,11 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    --background: 20 30% 10%;
     --foreground: 60 9.1% 97.8%;
-    --card: 20 14.3% 4.1%;
+    --card: 20 30% 10%;
     --card-foreground: 60 9.1% 97.8%;
-    --popover: 20 14.3% 4.1%;
+    --popover: 20 30% 10%;
     --popover-foreground: 60 9.1% 97.8%;
     --primary: 38 92% 50%;
     --primary-foreground: 26 83.3% 14.1%;
@@ -252,11 +252,11 @@ html.lenis {
 }
 
 .glassmorphism {
-  @apply bg-white/10 backdrop-blur-md border border-white/20;
+  @apply bg-white/10 backdrop-blur-md border border-white/20 dark:bg-amber-950/10 dark:border-amber-800/20;
 }
 
 .text-gradient {
-  @apply bg-gradient-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-amber-700 to-amber-500 dark:from-amber-500 dark:to-amber-300 bg-clip-text text-transparent;
 }
 
 .parallax-section {
@@ -291,7 +291,7 @@ html.lenis {
 
 /* Decorative elements */
 .circle-element {
-  @apply absolute rounded-full bg-amber-500/20 backdrop-blur-md;
+  @apply absolute rounded-full bg-amber-500/20 backdrop-blur-md dark:bg-amber-400/10;
 }
 
 .floating-element {
@@ -364,7 +364,7 @@ body * {
 
 /* Improve mobile menu */
 .mobile-menu-container {
-  @apply fixed inset-0 z-50 bg-white/95 backdrop-blur-md overflow-y-auto;
+  @apply fixed inset-0 z-50 bg-white/95 backdrop-blur-md overflow-y-auto dark:bg-amber-950/95;
 }
 
 /* Responsive grid layouts with improved spacing */
@@ -688,5 +688,39 @@ body {
 /* Hide custom cursor on mobile devices */
 .mobile-device .custom-cursor {
   display: none !important;
+}
+
+/* Dark mode specific styles */
+.dark .bg-amber-50 {
+  @apply bg-amber-950/50;
+}
+
+.dark .bg-white {
+  @apply bg-amber-950;
+}
+
+.dark .bg-gradient-to-r.from-amber-900.to-amber-800 {
+  @apply from-amber-950 to-amber-900;
+}
+
+.dark .bg-gradient-to-b.from-amber-50.to-white {
+  @apply from-amber-950/50 to-amber-950;
+}
+
+.dark .bg-amber-100 {
+  @apply bg-amber-900;
+}
+
+.dark .border-amber-200 {
+  @apply border-amber-800;
+}
+
+.dark .text-muted-foreground {
+  @apply text-amber-300/70;
+}
+
+/* Fix for theme toggle button */
+.theme-toggle-btn {
+  @apply fixed bottom-6 right-6 z-40;
 }
 
