@@ -20,8 +20,6 @@ import {
   improveTouchResponse,
   isMobileDevice,
 } from "@/app/mobile-utils";
-import ReviewsWrapper from "@/components/ReviewsWrapper";
-import dynamic from "next/dynamic";
 import ReviewsWrapperClient from "@/components/ReviewsWrapperClient";
 
 export default function Home() {
