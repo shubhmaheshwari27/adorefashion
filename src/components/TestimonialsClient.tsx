@@ -1,7 +1,4 @@
 "use client";
-
-import { useState } from "react";
-
 type Review = {
   author_name: string;
   profile_photo_url?: string;
@@ -10,7 +7,7 @@ type Review = {
 };
 
 export default function TestimonialsClient({ reviews }: { reviews: Review[] }) {
-  const [someState, setSomeState] = useState(false);
+  // const [someState, setSomeState] = useState(false);
 
   return (
     <div>

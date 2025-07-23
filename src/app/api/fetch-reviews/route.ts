@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
 const PLACE_ID = process.env.PLACE_ID;
 const API_KEY = process.env.PLACES_API_KEY;
@@ -14,14 +14,21 @@ export async function GET() {
     const reviews = data.result?.reviews || [];
 
     // Save to local cache
-    const filePath = path.join(process.cwd(), 'data', 'reviews.json');
-    fs.writeFileSync(filePath, JSON.stringify({ reviews, fetchedAt: new Date() }, null, 2));
+    const filePath = path.join(process.cwd(), "data", "reviews.json");
+    fs.writeFileSync(
+      filePath,
+      JSON.stringify({ reviews, fetchedAt: new Date() }, null, 2)
+    );
 
     return NextResponse.json({ success: true, reviews });
-  } catch (error: any) {
-    console.error('Failed to fetch reviews:', error);
+  } catch (error: unknown) {
+    console.error("Failed to fetch reviews:", error);
     return NextResponse.json(
-      { success: false, message: 'Failed to fetch Google reviews', error: error.message },
+      {
+        success: false,
+        message: "Failed to fetch Google reviews",
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }
