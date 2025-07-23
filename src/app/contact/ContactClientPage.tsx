@@ -16,7 +16,6 @@ import {
   Clock,
   Instagram,
   Facebook,
-  Twitter,
   ChevronRight,
 } from "lucide-react";
 

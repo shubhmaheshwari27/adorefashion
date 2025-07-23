@@ -11,7 +11,7 @@ import Footer from "@/components/ui/footer";
 import AnimatedScroll from "@/components/ui/animated-scroll";
 import ParallaxImage from "@/components/ui/parallax-image";
 import HorizontalScroll from "@/components/ui/horizontal-scroll";
-import { ChevronRight, ArrowRight, Star } from "lucide-react";
+import { ChevronRight, ArrowRight } from "lucide-react";
 import ProductInquiryForm from "@/components/ui/product-inquiry-form";
 import { generateLocalBusinessStructuredData } from "@/components/structured-data";
 import MobileOptimizedImage from "@/components/ui/mobile-optimized-image";
