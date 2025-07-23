@@ -36,14 +36,14 @@ export function generateLocalBusinessStructuredData() {
     description:
       "Exquisite Indian ethnic wear boutique offering bridal lehengas, designer sarees, and festive collections.",
     url: "https://adorefashion.in",
-    telephone: "+91 98765 43210",
+    telephone: "+91 7804009910",
     email: "info@adorefashion.in",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "123 Fashion Street",
-      addressLocality: "Mumbai",
-      addressRegion: "Maharashtra",
-      postalCode: "400001",
+      streetAddress: "Gufa Mandir Road",
+      addressLocality: "Lalghati Road",
+      addressRegion: "Bhopal, Madhya Pradesh",
+      postalCode: "462030",
       addressCountry: "IN",
     },
     geo: {

@@ -109,9 +109,9 @@ const Footer = () => {
           <div>
             <h3 className="text-base sm:text-lg font-semibold text-white mb-6 sm:mb-8">Contact Us</h3>
             <address className="not-italic text-white/70 space-y-4 text-sm sm:text-base">
-              <p>123 Fashion Street</p>
-              <p>Mumbai, Maharashtra 400001</p>
-              <p>Phone: +91 98765 43210</p>
+              <p>Adore by Kavya, Gufa Mandir Road,</p>
+              <p>Lalghati Road, Bhopal, Madhya Pradesh, 462030,</p>
+              <p>Phone: +91 7804009910</p>
               <p>Email: info@adorefashion.in</p>
             </address>
           </div>

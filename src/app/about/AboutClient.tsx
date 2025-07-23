@@ -125,7 +125,7 @@ export default function AboutClient() {
                   <p className="text-muted-foreground text-lg">
                     Founded in 2010 by Priya Sharma, a textile designer with
                     over 15 years of experience, Adore started as a small
-                    boutique in Mumbai with a handful of artisans. Today, we
+                    boutique in Bhopal with a handful of artisans. Today, we
                     have grown into a beloved brand that works with over 100
                     skilled craftspeople across India.
                   </p>

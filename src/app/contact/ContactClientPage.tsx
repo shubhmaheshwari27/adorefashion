@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,56 @@ import {
 } from "lucide-react";
 
 export default function ContactClientPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    try {
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.result === "success") {
+        setStatus("Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        setStatus("Something went wrong. Try again later.");
+      }
+    } catch (error) {
+      console.error("Submit Error:", error);
+      setStatus("Error sending message.");
+    }
+  };
+
   useEffect(() => {
     // Initialize smooth scrolling
     const initSmoothScroll = async () => {
@@ -60,13 +110,13 @@ export default function ContactClientPage() {
       name: "Adore Fashion",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "123 Fashion Street",
-        addressLocality: "Mumbai",
-        addressRegion: "Maharashtra",
-        postalCode: "400001",
+        streetAddress: "Gufa Mandir Road",
+        addressLocality: "Lalghati Road",
+        addressRegion: "Bhopal, Madhya Pradesh",
+        postalCode: "462030",
         addressCountry: "IN",
       },
-      telephone: "+91 98765 43210",
+      telephone: "+91 7804009910",
       email: "info@adorefashion.in",
       openingHoursSpecification: [
         {
@@ -168,9 +218,9 @@ export default function ContactClientPage() {
                           Visit Our Boutique
                         </h3>
                         <address className="not-italic text-muted-foreground">
-                          123 Fashion Street
+                          Adore by Kavya, Gufa Mandir Road,
                           <br />
-                          Mumbai, Maharashtra 400001
+                          Lalghati Road, Bhopal, Madhya Pradesh 462030,
                           <br />
                           India
                         </address>
@@ -185,7 +235,7 @@ export default function ContactClientPage() {
                         <h3 className="text-xl font-semibold text-amber-800 mb-2">
                           Call Us
                         </h3>
-                        <p className="text-muted-foreground">+91 98765 43210</p>
+                        <p className="text-muted-foreground">+91 7804009910</p>
                       </div>
                     </div>
 
@@ -227,38 +277,39 @@ export default function ContactClientPage() {
                     </h3>
                     <div className="flex gap-4">
                       <a
-                        href="#"
+                        href="https://www.instagram.com/adore_by_kavya/"
                         className="p-4 bg-amber-100 rounded-full text-amber-700 hover:bg-amber-200 transition-colors"
                       >
                         <Instagram className="h-6 w-6" />
                         <span className="sr-only">Instagram</span>
                       </a>
                       <a
-                        href="#"
+                        href="https://www.facebook.com/adorebykavya/"
                         className="p-4 bg-amber-100 rounded-full text-amber-700 hover:bg-amber-200 transition-colors"
                       >
                         <Facebook className="h-6 w-6" />
                         <span className="sr-only">Facebook</span>
                       </a>
-                      <a
+                      {/* <a
                         href="#"
                         className="p-4 bg-amber-100 rounded-full text-amber-700 hover:bg-amber-200 transition-colors"
                       >
                         <Twitter className="h-6 w-6" />
                         <span className="sr-only">Twitter</span>
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                 </div>
               </AnimatedScroll>
 
               {/* Contact Form */}
+              {/* https://script.google.com/macros/s/AKfycbx55K6HGBfQGrT6-mZUPaYn0RZkpQ3VCqlDWRsWYCFXvFYsOgArlxkwX9kUtlps4u7J/exec */}
               <AnimatedScroll direction="left">
                 <div className="glassmorphism p-10 rounded-xl bg-white/5">
                   <h2 className="text-2xl font-bold text-amber-800 mb-8">
                     Send Us a Message
                   </h2>
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label
@@ -268,7 +319,9 @@ export default function ContactClientPage() {
                           First Name
                         </label>
                         <Input
-                          id="first-name"
+                          id="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
                           placeholder="Enter your first name"
                           className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
                         />
@@ -281,7 +334,9 @@ export default function ContactClientPage() {
                           Last Name
                         </label>
                         <Input
-                          id="last-name"
+                          id="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
                           placeholder="Enter your last name"
                           className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
                         />
@@ -295,6 +350,8 @@ export default function ContactClientPage() {
                       <Input
                         id="email"
                         type="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder="Enter your email"
                         className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
                       />
@@ -306,6 +363,8 @@ export default function ContactClientPage() {
                       </label>
                       <Input
                         id="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
                         placeholder="Enter your phone number"
                         className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
                       />
@@ -317,6 +376,8 @@ export default function ContactClientPage() {
                       </label>
                       <Input
                         id="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
                         placeholder="What is this regarding?"
                         className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
                       />
@@ -328,6 +389,8 @@ export default function ContactClientPage() {
                       </label>
                       <Textarea
                         id="message"
+                        value={formData.message}
+                        onChange={handleChange}
                         placeholder="Enter your message"
                         rows={5}
                         className="rounded-lg border-amber-200 focus:border-amber-400 focus:ring-amber-400"
@@ -340,6 +403,7 @@ export default function ContactClientPage() {
                     >
                       Send Message
                     </Button>
+                    <p className="text-sm text-gray-500">{status}</p>
                   </form>
                 </div>
               </AnimatedScroll>

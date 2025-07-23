@@ -20,6 +20,7 @@ import {
   improveTouchResponse,
   isMobileDevice,
 } from "@/app/mobile-utils";
+import ReviewsWrapperClient from "@/components/ReviewsWrapperClient";
 
 export default function Home() {
   const router = useRouter();
@@ -32,6 +33,10 @@ export default function Home() {
 
   // Generate structured data
   const structuredData = generateLocalBusinessStructuredData();
+  // Dynamically load the server component
+  // const ReviewsWrapper = dynamic(() => import("@/components/ReviewsWrapper"), {
+  //   ssr: false, // Optional: if you want to avoid hydration mismatch warnings
+  // });
 
   useEffect(() => {
     // Check if device is mobile
@@ -338,7 +343,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials with parallax */}
-        <section className="py-24 relative overflow-hidden bg-amber-50 dark:bg-amber-950/50">
+        {/* <section className="py-24 relative overflow-hidden bg-amber-50 dark:bg-amber-950/50">
           <div className="absolute inset-0 -z-10">
             <ParallaxImage
               src="/assets/placeholders/adore_placeholder.jpg?height=1200&width=1920"
@@ -415,7 +420,9 @@ export default function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
+        {/* <Testimonials reviews={reviews} /> */}
+        <ReviewsWrapperClient />
 
         {/* Categories with 3D effect */}
         <section className="py-24 relative overflow-hidden">
