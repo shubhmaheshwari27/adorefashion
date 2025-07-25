@@ -5,12 +5,16 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "example.com", // Allow images from example.com
+        hostname: "example.com", // You can keep this or remove if unused
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com", // ✅ Added Google image host
       },
     ],
   },
   typescript: {
-    ignoreBuildErrors: false, // Ensure TypeScript errors are not ignored
+    ignoreBuildErrors: false, // Keep strict TypeScript checks
   },
   webpack(config, { isServer }) {
     // Add custom Webpack configurations here if necessary
