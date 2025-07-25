@@ -8,14 +8,11 @@ export default function ReviewsWrapperClient() {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const res = await fetch(
-          // "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/data/reviews.json"
-          "https://github.com/shubhmaheshwari27/adorefashion/main/data/reviews.json"
-        );
+        const res = await fetch("/api/get-reviews");
         const json = await res.json();
         setReviews(json.reviews ?? []);
       } catch (err) {
-        console.error("Failed to load reviews:", err);
+        console.error("❌ Failed to load reviews:", err);
       }
     }
 
@@ -24,6 +21,37 @@ export default function ReviewsWrapperClient() {
 
   return <Testimonials reviews={reviews} />;
 }
+
+
+
+
+
+// "use client";
+// import { useEffect, useState } from "react";
+// import Testimonials from "./Testimonials";
+
+// export default function ReviewsWrapperClient() {
+//   const [reviews, setReviews] = useState([]);
+
+//   useEffect(() => {
+//     async function fetchReviews() {
+//       try {
+//         const res = await fetch(
+//           // "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/data/reviews.json"
+//           "https://github.com/shubhmaheshwari27/adorefashion/main/data/reviews.json"
+//         );
+//         const json = await res.json();
+//         setReviews(json.reviews ?? []);
+//       } catch (err) {
+//         console.error("Failed to load reviews:", err);
+//       }
+//     }
+
+//     fetchReviews();
+//   }, []);
+
+//   return <Testimonials reviews={reviews} />;
+// }
 
 
 // "use client";
