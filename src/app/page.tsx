@@ -33,10 +33,7 @@ export default function Home() {
 
   // Generate structured data
   const structuredData = generateLocalBusinessStructuredData();
-  // Dynamically load the server component
-  // const ReviewsWrapper = dynamic(() => import("@/components/ReviewsWrapper"), {
-  //   ssr: false, // Optional: if you want to avoid hydration mismatch warnings
-  // });
+
 
   useEffect(() => {
     // Check if device is mobile

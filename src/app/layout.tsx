@@ -7,6 +7,7 @@ import CustomCursor from "@/components/ui/custom-cursor";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import { useEffect } from "react";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -140,6 +141,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <CustomCursor />
           {children}
+          <WhatsAppFloatingButton />
         </ThemeProvider>
       </body>
     </html>
