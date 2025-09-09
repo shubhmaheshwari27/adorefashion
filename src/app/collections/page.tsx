@@ -9,10 +9,11 @@ import Footer from "@/components/ui/footer";
 import AnimatedScroll from "@/components/ui/animated-scroll";
 import ParallaxImage from "@/components/ui/parallax-image";
 import HorizontalScroll from "@/components/ui/horizontal-scroll";
-import ProductInquiryForm from "@/components/ui/product-inquiry-form";
+// import ProductInquiryForm from "@/components/ui/product-inquiry-form";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import Script from "next/script";
 import { generateProductStructuredData } from "@/components/structured-data";
+import Link from "next/link";
 // import { generateMetadata } from "@/app/collections/metadata";
 
 // export async function generateMetadata({ params, searchParams }: { params: any; searchParams: { category?: string } }) {
@@ -46,7 +47,24 @@ export default function Collections() {
   const [selectedProduct, setSelectedProduct] = useState<{
     name: string;
     image: string;
+    description?: string;
+    price?: string;
   } | null>(null);
+
+  const handleProductClick = (
+    productName: string,
+    productImage: string,
+    productDescription?: string,
+    productPrice?: string
+  ) => {
+    setSelectedProduct({
+      name: productName,
+      image: productImage,
+      description: productDescription,
+      price: productPrice,
+    });
+    setModalOpen(true);
+  };
 
   useEffect(() => {
     // Set active category from URL parameter if available
@@ -88,10 +106,7 @@ export default function Collections() {
     initSmoothScroll();
   }, [categoryParam]);
 
-  const handleProductClick = (productName: string, productImage: string) => {
-    setSelectedProduct({ name: productName, image: productImage });
-    setModalOpen(true);
-  };
+
 
   const categories = [
     {
@@ -253,13 +268,54 @@ export default function Collections() {
       <Navigation />
 
       {/* Inquiry Form Modal */}
-      {selectedProduct && (
-        <ProductInquiryForm
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          productName={selectedProduct.name}
-          productImage={`/assets/placeholders/adore_placeholder.jpg?height=${selectedProduct.image}&width=600`}
-        />
+      {selectedProduct && modalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
+          <div className="relative bg-white w-full max-w-md rounded-xl overflow-hidden shadow-lg max-h-[90vh] flex flex-col">
+            {/* Close Button */}
+            <button
+              className="absolute top-2 right-2 text-gray-600 hover:text-black text-lg z-10"
+              onClick={() => setModalOpen(false)}
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+
+            {/* Image (Full width, large height) */}
+            <div className="w-full h-[300px] sm:h-[350px] md:h-[400px] relative">
+              <Image
+                src={`/assets/placeholders/adore_placeholder.jpg?height=${selectedProduct.image}&width=600`}
+                alt={selectedProduct.name}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Info Section (Scrollable if needed) */}
+            <div className="p-4 space-y-3 overflow-y-auto">
+              <h3 className="text-lg font-semibold text-center">
+                {selectedProduct.name}
+              </h3>
+              <p className="text-sm text-muted-foreground text-center line-clamp-2">
+                {selectedProduct.description}
+              </p>
+              <p className="text-md text-amber-700 font-bold text-center">
+                {selectedProduct.price}
+              </p>
+
+              <Link
+                href={`https://wa.me/916261427004?text=${encodeURIComponent(
+                  `Hi, I'm interested in this product:\n\nName: ${selectedProduct.name}\nImage: https://adorefashion.in/assets/placeholders/adore_placeholder.jpg?height=${selectedProduct.image}&width=600\n\nPlease share more details.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-full text-sm py-2 mt-2">
+                  Chat on WhatsApp
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
 
       <main>
@@ -406,7 +462,12 @@ export default function Collections() {
                           <Button
                             className="w-full bg-amber-600 hover:bg-amber-700 rounded-full text-xs sm:text-sm"
                             onClick={() =>
-                              handleProductClick(item.name, item.image)
+                              handleProductClick(
+                                item.name,
+                                item.image,
+                                item.description,
+                                item.price
+                              )
                             }
                             aria-label={`View details for ${item.name}`}
                           >

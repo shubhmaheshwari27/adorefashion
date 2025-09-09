@@ -9,6 +9,7 @@ import Footer from "@/components/ui/footer";
 import AnimatedScroll from "@/components/ui/animated-scroll";
 import ParallaxImage from "@/components/ui/parallax-image";
 import { ChevronRight, Star } from "lucide-react";
+import ExhibitionSection from "@/components/ExhibitionSection";
 
 export default function AboutClient() {
   useEffect(() => {
@@ -156,6 +157,8 @@ export default function AboutClient() {
             </div>
           </div>
         </section>
+
+        <ExhibitionSection />
 
         {/* Our Philosophy with animated counters */}
         <section className="py-24 relative overflow-hidden bg-amber-50">

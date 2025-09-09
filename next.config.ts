@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "res.cloudinary.com", // ✅ Add Cloudinary
+      },
+      {
+        protocol: "https",
         hostname: "example.com", // You can keep this or remove if unused
       },
       {
@@ -17,7 +21,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false, // Keep strict TypeScript checks
   },
   webpack(config, { isServer }) {
-    // Add custom Webpack configurations here if necessary
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "@": __dirname, // ✅ Adds @/ alias for project root
+    };
     return config;
   },
 };
