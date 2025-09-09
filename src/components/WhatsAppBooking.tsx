@@ -5,10 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-const whatsappLink =
-  "https://wa.me/916261427004?text=Hi%20I%20am%20interested%20in%20booking%20a%20consultation%20with%20Adore.%20My%20name%20is%20[Your%20Name]%20and%20my%20phone%20number%20is%20[Your%20Phone].";
+type WhatsAppBookingProps = {
+  isEventBooking?: boolean;
+};
 
-export default function WhatsAppBooking() {
+
+
+export default function WhatsAppBooking({ isEventBooking = false }: WhatsAppBookingProps) {
+
+    const whatsappLink = isEventBooking
+  ? "https://wa.me/916261427004?text=Hi%20We%20would%20like%20to%20invite%20Adore%20to%20our%20upcoming%20exhibition.%20Here%20are%20the%20details%3A..."
+  : "https://wa.me/916261427004?text=Hi%20I%20am%20interested%20in%20booking%20a%20consultation...";
+
   const qrRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
